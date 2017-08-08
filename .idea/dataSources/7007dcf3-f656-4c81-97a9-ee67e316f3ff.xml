@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="db">
+  <database-model serializer="dbm" rdbms="H2" format-version="4.4">
+    <root id="1"/>
+    <database id="2" parent="1" name="DB">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="BROKER">
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="2" name="CLIENT"/>
+    <schema id="5" parent="2" name="INFORMATION_SCHEMA"/>
+    <schema id="6" parent="2" name="PUBLIC">
+      <Current>1</Current>
+    </schema>
+    <table id="7" parent="3" name="CLIENTS"/>
+    <table id="8" parent="3" name="CLIENT_IN_MSGS"/>
+    <table id="9" parent="3" name="CLIENT_OUT_MSGS"/>
+    <table id="10" parent="3" name="MSGS"/>
+    <table id="11" parent="3" name="RETAINED_MSGS"/>
+    <table id="12" parent="3" name="SUBSCRIPTIONS"/>
+    <table id="13" parent="3" name="USERS"/>
+    <column id="14" parent="7" name="CLIENT_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR(max)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="15" parent="7" name="USERNAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(max)|12</DataType>
+    </column>
+    <column id="16" parent="7" name="STATE">
+      <Position>3</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="17" parent="7" name="CLEAN_SESSION">
+      <Position>4</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="18" parent="7" name="WILL_MSG">
+      <Position>5</Position>
+      <DataType>CHAR(36)|1</DataType>
+      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
+    </column>
+    <column id="19" parent="7" name="LOCAL_ADDRESS">
+      <Position>6</Position>
+      <DataType>VARCHAR(32)|12</DataType>
+      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
+    </column>
+    <column id="20" parent="7" name="REMOTE_ADDRESS">
+      <Position>7</Position>
+      <DataType>VARCHAR(32)|12</DataType>
+      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
+    </column>
+    <column id="21" parent="7" name="FIRST_TIMESTAMP">
+      <Position>8</Position>
+      <DataType>TIMESTAMP(23,10)|93</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP()</DefaultExpression>
+    </column>
+    <column id="22" parent="7" name="LATEST_TIMESTAMP">
+      <Position>9</Position>
+      <DataType>TIMESTAMP(23,10)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="23" parent="7" name="CONSTRAINT_5">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLIENT_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="24" parent="7" name="CLIENT_WILL_MSG">
+      <ColNames>WILL_MSG</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>MSGS</RefTableName>
+      <RefKeyName>CONSTRAINT_2</RefKeyName>
+      <RefColNames>MSG_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="25" parent="8" name="CLIENT_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR(128)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="8" name="MSG_ID">
+      <Position>2</Position>
+      <DataType>CHAR(36)|1</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="8" name="PACKET_ID">
+      <Position>3</Position>
+      <DataType>SMALLINT(5)|5</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="28" parent="8" name="STATE">
+      <Position>4</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="29" parent="8" name="TIMESTAMP">
+      <Position>5</Position>
+      <DataType>TIMESTAMP(23,10)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="30" parent="8" name="CONSTRAINT_8">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLIENT_ID
+MSG_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="31" parent="8" name="CLIENT_IN_MSGS_CLIENT_ID">
+      <ColNames>CLIENT_ID</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>CLIENTS</RefTableName>
+      <RefKeyName>CONSTRAINT_5</RefKeyName>
+      <RefColNames>CLIENT_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="32" parent="8" name="CLIENT_IN_MSGS_MSG_ID">
+      <ColNames>MSG_ID</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>MSGS</RefTableName>
+      <RefKeyName>CONSTRAINT_2</RefKeyName>
+      <RefColNames>MSG_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="33" parent="9" name="CLIENT_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR(128)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="9" name="MSG_ID">
+      <Position>2</Position>
+      <DataType>CHAR(36)|1</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="9" name="PACKET_ID">
+      <Position>3</Position>
+      <DataType>SMALLINT(5)|5</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="36" parent="9" name="STATE">
+      <Position>4</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="37" parent="9" name="TIMESTAMP">
+      <Position>5</Position>
+      <DataType>TIMESTAMP(23,10)|93</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP()</DefaultExpression>
+    </column>
+    <key id="38" parent="9" name="CONSTRAINT_6">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLIENT_ID
+MSG_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="39" parent="9" name="CLIENT_OUT_MSGS_CLIENT_ID">
+      <ColNames>CLIENT_ID</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>CLIENTS</RefTableName>
+      <RefKeyName>CONSTRAINT_5</RefKeyName>
+      <RefColNames>CLIENT_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="40" parent="9" name="CLIENT_OUT_MSGS_MSG_ID">
+      <ColNames>MSG_ID</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>MSGS</RefTableName>
+      <RefKeyName>CONSTRAINT_2</RefKeyName>
+      <RefColNames>MSG_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="41" parent="10" name="MSG_ID">
+      <Position>1</Position>
+      <DataType>CHAR(36)|1</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="10" name="PACKET_ID">
+      <Position>2</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="43" parent="10" name="TOPIC">
+      <Position>3</Position>
+      <DataType>CLOB(max)|2005</DataType>
+    </column>
+    <column id="44" parent="10" name="QOS">
+      <Position>4</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="45" parent="10" name="DATA">
+      <Position>5</Position>
+      <DataType>BLOB(max)|2004</DataType>
+    </column>
+    <column id="46" parent="10" name="RETAIN">
+      <Position>6</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="47" parent="10" name="TIMESTAMP">
+      <Position>7</Position>
+      <DataType>TIMESTAMP(23,10)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="48" parent="10" name="CONSTRAINT_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>MSG_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="49" parent="11" name="TOPIC">
+      <Position>1</Position>
+      <DataType>VARCHAR(512)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="11" name="MSG_ID">
+      <Position>2</Position>
+      <DataType>CHAR(36)|1</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="51" parent="11" name="CONSTRAINT_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TOPIC</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="52" parent="11" name="RETAINED_MSGS_MSG_ID">
+      <ColNames>MSG_ID</ColNames>
+      <RefSchemaName>BROKER</RefSchemaName>
+      <RefTableName>MSGS</RefTableName>
+      <RefKeyName>CONSTRAINT_2</RefKeyName>
+      <RefColNames>MSG_ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="53" parent="12" name="CLIENT_ID">
+      <Position>1</Position>
+      <DataType>VARCHAR(128)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="12" name="TOPIC">
+      <Position>2</Position>
+      <DataType>VARCHAR(max)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="12" name="QOS">
+      <Position>3</Position>
+      <DataType>TINYINT(3)|-6</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <key id="56" parent="12" name="CONSTRAINT_3">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLIENT_ID
+TOPIC</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="57" parent="13" name="USERNAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(max)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="58" parent="13" name="PASSWORD">
+      <Position>2</Position>
+      <DataType>VARCHAR(64)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="59" parent="13" name="CONSTRAINT_4D">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>USERNAME</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,374 @@
+[08/08/2017 09:58:23.222] [ INFO  ] [  Core-API  ] Starting Noza : Version 0.1.0
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] Configs 
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.worker.count              : 4
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.allow.anonymous           : true
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.audit.interval            : 30
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.client.expire.duration    : 1800
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.username.as.clientid      : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.callback              : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.level                 : ALL
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.filepath              : ./data/log/
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.filesize              : 1200000
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.filecount             : 10
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.log.buffersize            : 512
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.db.username               : noza
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.db.password               : noza
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.db.persisted              : true
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.large.bufsize             : 16921
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.on                    : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.secure                : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.hostname              : 127.0.0.1
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.port                  : 8080
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.keystore              : null
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.keystore.password     : null
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.keystore.key.password : null
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.truststore            : null
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.truststore.password   : null
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.username              : admin
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] broker.gui.password              : admin
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport                        : 
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.protocol               : tls
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.hostname               : 127.0.0.1
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.port                   : 1884
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.keystore               : data/tls/serverkeystore.jks
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.keystore.password      : serverkeystore
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.keystore.key.password  : serverkey
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.truststore             : data/tls/servertruststore.jks
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.truststore.password    : servertruststore
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport                        : 
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.protocol               : ws
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.hostname               : 127.0.0.1
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.uri                    : mqtt
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.port                   : 8086
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport                        : 
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.protocol               : tcp
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.hostname               : 127.0.0.1
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] transport.port                   : 1883
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] mqtt.store.qos0                  : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] mqtt.store.retain                : false
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] mqtt.max.inflight                : 50
+[08/08/2017 09:58:23.229] [ INFO  ] [  Core-API  ] mqtt.msg.maxsize                 : 8192
+[08/08/2017 09:58:23.733] [ INFO  ] [  Worker-0  ] [  Worker-0  ] starting..
+[08/08/2017 09:58:23.737] [ INFO  ] [  Worker-1  ] [  Worker-1  ] starting..
+[08/08/2017 09:58:23.740] [ INFO  ] [  Worker-2  ] [  Worker-2  ] starting..
+[08/08/2017 09:58:23.745] [ INFO  ] [  Worker-3  ] [  Worker-3  ] starting..
+[08/08/2017 09:58:23.178] [ INFO  ] [ Dispatcher ] [ Dispatcher ] starting..
+[08/08/2017 09:58:31.665] [ INFO  ] [ Dispatcher ] tcp://127.0.0.1:1883 accepted : (Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 ----------------------------------------------------
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Message Type        : CONNECT
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Total Length        : 45
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Remaining Length    : 43
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Protocol Level      : 4
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Client ID           : kamil3
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Connect Flags       : 00001110
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Will           : true
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Will QOS       : 1
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Will Retain    : false
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 WILL TOPIC          : /kamil/asd
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 WILL MESSAGE        : 11 bytes.
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Username       : false
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Password       : false
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Flag Clean Session  : true
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Keep Alive          : 30
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Username            : null
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 Password            : null
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] 	 ----------------------------------------------------
+[08/08/2017 09:58:31.683] [ INFO  ] [ Dispatcher ] Connected client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Message Type        : CONNACK
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Total Length        : 4
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 2
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Return Code         : ACCEPTED
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 Session Present     : false
+[08/08/2017 09:58:31.686] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.248] [ INFO  ] [ Dispatcher ] tcp://127.0.0.1:1883 accepted : (Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Message Type        : CONNECT
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Total Length        : 19
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Remaining Length    : 17
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Protocol Level      : 4
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Client ID           : kamil
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Connect Flags       : 00000000
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Flag Will           : false
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Flag Username       : false
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Flag Password       : false
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Flag Clean Session  : false
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Keep Alive          : 30
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Username            : null
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 Password            : null
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.255] [ INFO  ] [ Dispatcher ] Connected client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Message Type        : CONNACK
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Total Length        : 4
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 2
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Return Code         : ACCEPTED
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Session Present     : true
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBLISH
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Total Length        : 27
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 25
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 QOS                 : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Duplicate      : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Retain         : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Topic               : /kamil/asd
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Payload             : 0 bytes
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBLISH
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Total Length        : 27
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 25
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 QOS                 : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Duplicate      : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Retain         : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Topic               : /kamil/asd
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Payload             : 0 bytes
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBLISH
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Total Length        : 27
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 25
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 QOS                 : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Duplicate      : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Flag Retain         : false
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Topic               : /kamil/asd
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 Payload             : 0 bytes
+[08/08/2017 09:58:32.256] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBACK
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 Total Length        : 4
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 2
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.271] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBACK
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 Total Length        : 4
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 2
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.278] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 Message Type        : PUBACK
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 Total Length        : 4
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 2
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 Packet ID           : 1
+[08/08/2017 09:58:32.281] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:01.691] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 09:59:32.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:02.263] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:00:32.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:01.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:31.692] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:01:32.265] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] Recv msg for Client : kamil3@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61986)
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] Message is sent to kamil3
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Total Length        : 2
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Remaining Length    : 0
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 Header Flags        : 00000000
+[08/08/2017 10:02:01.693] [ INFO  ] [  Worker-1  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] Recv msg for Client : kamil@(Local : tcp://127.0.0.1:1883 - Remote : tcp://127.0.0.1:61987)
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGREQ
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] Message is sent to kamil
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Message Type        : PINGRESP
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Total Length        : 2
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Remaining Length    : 0
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 Header Flags        : 00000000
+[08/08/2017 10:02:02.264] [ INFO  ] [  Worker-0  ] 	 ----------------------------------------------------

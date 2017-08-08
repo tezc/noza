@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Noza:jar">
+    <output-path>$PROJECT_DIR$/deploy/bin</output-path>
+    <root id="archive" name="Noza.jar">
+      <element id="module-output" name="Noza" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/thirdParty/h2database/h2-1.4.196.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
