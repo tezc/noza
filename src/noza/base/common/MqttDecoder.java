@@ -16,7 +16,7 @@ public class MqttDecoder
     public MqttDecoder(Configs configs)
     {
         this.configs = configs;
-        header       = new Buffer(Mqtt.MAX_FIXED_HDR_LEN);
+        header       = new Buffer(Msg.MAX_FIXED_HDR_LEN);
     }
 
     public int needed()
@@ -34,7 +34,7 @@ public class MqttDecoder
         if (msg == null) {
             header.put(buf);
 
-            if (header.remaining() > header.cap() - Mqtt.MIN_MSG_LEN) {
+            if (header.remaining() > header.cap() - Msg.MIN_MSG_LEN) {
                 return null;
             }
 

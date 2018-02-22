@@ -6,6 +6,21 @@ public interface LogOwner
     String getTimestampStr();
     String getName();
 
+    default void logTrace(Throwable t, Object ...args)
+    {
+        getLogger().fatal(getTimestampStr(), getName(), null, args);
+    }
+
+    default void logTrace(Object ...args)
+    {
+        getLogger().trace(getTimestampStr(), getName(), null, args);
+    }
+
+    default void logDebug(Throwable t, Object ...args)
+    {
+        getLogger().fatal(getTimestampStr(), getName(), null, args);
+    }
+
     default void logDebug(Object ...args)
     {
         getLogger().debug(getTimestampStr(), getName(), null, args);
@@ -16,14 +31,14 @@ public interface LogOwner
         getLogger().info(getTimestampStr(), getName(), null,  args);
     }
 
-    default void logBrief(Object ...args)
-    {
-        getLogger().brief(getTimestampStr(), getName(), null, args);
-    }
-
     default void logWarn(Object ...args)
     {
         getLogger().warn(getTimestampStr(), getName(), null, args);
+    }
+
+    default void logWarn(Throwable t, Object ...args)
+    {
+        getLogger().error(getTimestampStr(), getName(), t, args);
     }
 
     default void logError(Object ...args)
@@ -35,4 +50,17 @@ public interface LogOwner
     {
         getLogger().error(getTimestampStr(), getName(), t, args);
     }
+
+    default void logFatal(Object ...args)
+    {
+        getLogger().fatal(getTimestampStr(), getName(), null, args);
+    }
+
+    default void logFatal(Throwable t, Object ...args)
+    {
+        getLogger().fatal(getTimestampStr(), getName(), null, args);
+    }
+
+
+
 }

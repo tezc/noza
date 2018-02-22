@@ -16,6 +16,7 @@ import java.util.ArrayDeque;
 
 public class Log
 {
+    private static final int LINE_LEN = 120;
     private static final DateTimeFormatter formatter =
         DateTimeFormatter.ofPattern("dd.MM.yyyy-hh.mm.ssa");
 
@@ -45,6 +46,11 @@ public class Log
         this.index       = 0;
         this.newLine     = false;
 
+    }
+
+    public Level getLevel()
+    {
+        return logLevel;
     }
 
     public void init(Configs configs, Callbacks callbacks)
@@ -95,6 +101,11 @@ public class Log
         }
     }
 
+    void trace(String timestamp, String owner, Throwable t, Object ...args)
+    {
+        log(Level.TRACE, timestamp, owner, t, args);
+    }
+
     void debug(String timestamp, String owner, Throwable t, Object ...args)
     {
         log(Level.DEBUG, timestamp, owner, t, args);
@@ -118,6 +129,11 @@ public class Log
     void error(String timestamp, String owner, Throwable t, Object ...args)
     {
         log(Level.ERROR, timestamp, owner, t, args);
+    }
+
+    void fatal(String timestamp, String owner, Throwable t, Object ...args)
+    {
+        log(Level.FATAL, timestamp, owner, t, args);
     }
 
     private void close()
@@ -170,8 +186,6 @@ public class Log
             callbacks.onLog(owner, level.toString(), builder.toString());
         }
         else {
-
-
             index = 0;
             newLine = false;
 
@@ -210,7 +224,7 @@ public class Log
         int argIndex = 0;
 
         while (argIndex < log.length()) {
-            if (index >= 100) {
+            if (index >= LINE_LEN) {
                 writer.write(Util.newLine());
                 System.out.print(Util.newLine());
                 writeHeaders(timestamp, level, owner);
@@ -224,17 +238,28 @@ public class Log
             }
 
             int pos = log.indexOf(Util.newLine(), argIndex);
-            if (pos == -1 || index + pos - argIndex > 100) {
-                pos = index + argIndex + 100;
+            boolean lf = false;
+            if (pos == -1) {
+                pos = log.indexOf('\n', argIndex);
+                if (pos != -1) {
+                    lf = true;
+                }
+            }
+            if (pos == -1 || index + pos - argIndex > LINE_LEN) {
+                pos = index + argIndex + LINE_LEN;
             }
             else {
-                pos += Util.newLine().length();
+                pos += (lf ? 0 : Util.newLine().length());
                 newLine = true;
             }
 
-            int writeLen = Math.min(pos - argIndex,
-                                    log.length() - argIndex);
+            int writeLen = Math.min(pos - argIndex, log.length() - argIndex);
             writer.write(log, argIndex, writeLen);
+            if (lf && newLine) {
+                writer.write(Util.newLine());
+                pos += 1;
+
+            }
             System.out.print(log.substring(argIndex, argIndex + writeLen));
 
             argIndex = pos;
@@ -275,8 +300,8 @@ public class Log
     }
 
 
-    private void log(Level level, String timestamp,
-                     String owner, Throwable t, Object ...args)
+    private void log(Level level,
+                     String timestamp, String owner, Throwable t, Object ...args)
     {
         if (logLevel.value > level.value) {
             return;

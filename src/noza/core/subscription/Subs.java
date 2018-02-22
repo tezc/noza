@@ -4,6 +4,7 @@ import noza.base.config.Config;
 import noza.base.config.Configs;
 import noza.core.ClientRecord;
 import noza.core.msg.PublishMsg;
+import noza.core.msg.Topic;
 import noza.core.worker.events.PublishMsgBatch;
 import noza.core.client.Client;
 
@@ -85,16 +86,15 @@ public class Subs
                                                  topic,
                                                  qos);
             if (!subscribed) {
-                return subscribed;
+                return false;
             }
 
             Node node = subs.get(topic);
 
             for (Node regularNode : subs.values()) {
-                if (regularNode.isRegular() && regularNode
-                    .hasRetainedFor(qos)) {
+                if (regularNode.isRegular() && regularNode.hasRetainedFor(qos)) {
                     if (node.match(regularNode)) {
-                        client.sendPublish(regularNode.getRetained());
+                        client.sendPublish(regularNode.getRetained(), false);
                     }
                 }
             }

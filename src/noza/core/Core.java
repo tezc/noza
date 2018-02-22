@@ -2,19 +2,20 @@ package noza.core;
 
 import noza.api.Callbacks;
 import noza.api.Noza;
-import noza.api.beans.ClientBean;
 import noza.base.config.Config;
 import noza.base.config.Configs;
 import noza.base.log.Log;
 import noza.base.log.LogOwner;
+import noza.cluster.Cluster;
 import noza.core.client.Client;
 import noza.core.msg.ConnectMsg;
-import noza.core.msg.PublishMsg;
 import noza.core.msg.Topic;
 import noza.core.subscription.Subs;
+import noza.core.worker.ClientWorker;
+import noza.core.worker.DaemonWorker;
+import noza.core.worker.DispatchWorker;
 import noza.core.worker.events.PublishMsgBatch;
 import noza.core.worker.Worker;
-import noza.db.Db;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -40,18 +41,18 @@ public class Core implements LogOwner
     private final String name;
     private final AtomicInteger workerId;
     private final Log log;
-    private final ArrayList<Worker> workers;
-    private final Worker dispatcher;
+    private final ArrayList<ClientWorker> workers;
+    private final DispatchWorker dispatcher;
+    private final DaemonWorker daemon;
     private final HashMap<String, ClientRecord> clients;
     private final Subs subs;
-    private final Db db;
+    private final Cluster cluster;
 
 
     private final boolean allowAnonymous;
     private final boolean guiOn;
     private final boolean usernameAsClientId;
-    private final boolean storeRetain;
-    private final boolean storeQos0;
+    private final boolean qos0Stored;
 
     private final int maxMsgSize;
     private final int maxInflight;
@@ -64,13 +65,15 @@ public class Core implements LogOwner
         state                = STOPPED;
         this.callbacks       = callbacks;
         configs              = new Configs(configsPath);
-        dispatcher           = new Worker("[ Dispatcher ]", 0, this, configs);
+
+        daemon               = new DaemonWorker("[   Daemon   ]", 0,  this, configs);
+        dispatcher           = new DispatchWorker("[ Dispatcher ]", 0, this, configs);
+
         clients              = new HashMap<>();
         workerId             = new AtomicInteger(0);
         subs                 = new Subs(configs);
         workers              = new ArrayList<>();
-        log                  = new Log(dispatcher);
-        db                   = createDbConnection();
+        log                  = new Log(daemon);
 
         allowAnonymous       = configs.get(Config.BROKER_ALLOW_ANONYMOUS);
         guiOn                = configs.get(Config.BROKER_GUI_ON);
@@ -79,8 +82,9 @@ public class Core implements LogOwner
         clientExpireDuration = configs.get(Config.BROKER_CLIENT_EXPIRE_DURATION);
         auditInterval        = configs.get(Config.BROKER_AUDIT_INTERVAL);
         usernameAsClientId   = configs.get(Config.BROKER_USERNAME_AS_CLIENTID);
-        storeRetain          = configs.get(Config.MQTT_STORE_RETAIN);
-        storeQos0            = configs.get(Config.MQTT_STORE_QOS0);
+        qos0Stored           = configs.get(Config.MQTT_STORE_QOS0);
+
+        cluster              = new Cluster(this);
     }
 
     public int getMaxMsgSize()
@@ -88,24 +92,25 @@ public class Core implements LogOwner
         return maxMsgSize;
     }
 
+    public boolean isQos0Stored()
+    {
+        return qos0Stored;
+    }
+
     public int workerCount()
     {
         return workers.size();
     }
 
-    public List<Worker> getWorkers()
+    public List<ClientWorker> getWorkers()
     {
         return workers;
     }
 
-    public Db createDbConnection()
-    {
-        return new Db(configs);
-    }
 
     private String generateId()
     {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace('-', '0');
     }
 
     public void verifyTopic(Topic topic)
@@ -163,6 +168,7 @@ public class Core implements LogOwner
     {
         log.init(configs, callbacks);
 
+        cluster.start();
         logInfo("Starting Noza : ", VERSION);
         logInfo(configs.toString());
 
@@ -173,57 +179,20 @@ public class Core implements LogOwner
 
         int workerCount = configs.get(Config.BROKER_WORKER_COUNT);
         for (int i = 0; i < workerCount; i++) {
-            Worker worker = new Worker("[  Worker-" + i + "  ]", i, this, configs);
+            ClientWorker worker = new ClientWorker("[  Worker-" + i + "  ]", i, this, configs);
             workers.add(worker);
         }
 
         workers.forEach(Worker::start);
 
         readDb();
+        daemon.start();
         dispatcher.start();
+
     }
 
     private void readDb()
     {
-        List<ClientBean> clientList = db.getClients();
-
-        for (ClientBean client : clientList) {
-            if (!client.isCleanSession()) {
-                ClientRecord record = new ClientRecord(client.getClientId(),
-                                                       nextWorker());
-
-                clients.put(client.getClientId(), record);
-
-                List<Topic> subscriptions = db.getClientSubs(client.getClientId());
-                for (Topic topic : subscriptions) {
-                    boolean success = subs.addSubscription(record,
-                                                           client.getUsername(),
-                                                           topic.getStr(),
-                                                           topic.getQos());
-
-                    if (!success) {
-                        db.removeSubscription(record.getClientId(), topic.getStr());
-                    }
-                }
-            }
-        }
-
-        PublishMsgBatch batch = new PublishMsgBatch(db, getWorkers());
-        for (ClientBean client : clientList) {
-            String msgId = client.getWillMsg();
-            if (msgId != null) {
-                batch.clear();
-                PublishMsg msg = db.getMsg(msgId);
-                batch.setMsg(db.getMsg(msgId));
-                subs.publish(client.getUsername(), client.getClientId(), batch);
-                db.removeClientWillMsg(client.getClientId());
-            }
-
-            if (client.isCleanSession()) {
-                db.removeClient(client.getClientId(), true);
-            }
-        }
-
 
     }
 
@@ -262,7 +231,7 @@ public class Core implements LogOwner
         callbacks.onDisconnect(connection, clientId);
     }
 
-    private Worker nextWorker()
+    private ClientWorker nextWorker()
     {
         return workers.get(workerId.getAndIncrement() % workers.size());
     }
@@ -270,7 +239,7 @@ public class Core implements LogOwner
     private boolean verifyClientId(String clientId)
     {
         for (int i = 0; i < clientId.length(); i++) {
-            if (Mqtt.clientIdChars.indexOf(clientId.charAt(i)) == -1) {
+            if (ConnectMsg.CLIENT_ID_CHARS.indexOf(clientId.charAt(i)) == -1) {
                 return false;
             }
         }

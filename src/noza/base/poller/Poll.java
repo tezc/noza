@@ -1,8 +1,8 @@
 package noza.base.poller;
 
 import noza.base.common.Util;
-import noza.core.worker.Worker;
 import noza.base.transport.sock.Sock;
+import noza.core.worker.Worker;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Poller
+public class Poll
 {
     private static final DateTimeFormatter formatter =
         DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss.SSS");
@@ -30,7 +30,7 @@ public class Poller
     private final EventQueue queue;
 
 
-    public Poller(Worker worker)
+    public Poll(Worker worker)
     {
         try {
             this.selector = Selector.open();
@@ -39,9 +39,9 @@ public class Poller
             throw new RuntimeException(e);
         }
 
-        this.worker = worker;
-        this.awake = new AtomicBoolean(false);
-        this.queue = new EventQueue();
+        this.worker  = worker;
+        this.awake  = new AtomicBoolean(false);
+        this.queue  = new EventQueue();
         this.timers = new PriorityQueue<>(20, new noza.base.poller.Timer.Compare());
 
         updateTimestamp();

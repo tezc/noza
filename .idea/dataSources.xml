@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="h2db" uuid="62dbf1e4-581d-4dff-af1e-c9bad8394742">
+    <data-source source="LOCAL" name="h2db [2]" uuid="5f129f76-f14b-44d3-9f33-fe8869697cc1">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:file:$PROJECT_DIR$/deploy/data/db/db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE</jdbc-url>
+      <jdbc-url>jdbc:h2:file:$PROJECT_DIR$/deploy/data/db/db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=true;MODE=MySQL</jdbc-url>
     </data-source>
   </component>
 </project>

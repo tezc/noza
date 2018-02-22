@@ -4,6 +4,7 @@ package noza.core.client.events;
 import noza.base.common.Util;
 import noza.base.poller.Event;
 import noza.core.msg.PublishMsg;
+import noza.core.worker.ClientWorker;
 import noza.core.worker.Worker;
 
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ public class PublishMsgEvent implements Event
 {
     public List<String> clients;
     private PublishMsg publish;
-    private Worker worker;
+    private ClientWorker worker;
 
-    public PublishMsgEvent(Worker worker)
+    public PublishMsgEvent(ClientWorker worker)
     {
         this.clients = new ArrayList<>();
         this.worker  = worker;

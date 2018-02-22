@@ -39,10 +39,10 @@ public class UnsubscribeMsg extends Msg
     public void encode()
     {
         if (!rawReady) {
-            remaining = Mqtt.PACKET_ID_LEN;
+            remaining = Msg.PACKET_ID_LEN;
 
             for (String topic : topics) {
-                remaining += Mqtt.STR_SIZELEN + topic.length();
+                remaining += Msg.STR_SIZELEN + topic.length();
             }
 
             hdrLen = 1 + Msg.lengthOf(remaining);
@@ -72,13 +72,13 @@ public class UnsubscribeMsg extends Msg
         rawMsg.advance(hdrLen);
 
         packetId   = rawMsg.getShort();
-        remaining -= Mqtt.PACKET_ID_LEN;
+        remaining -= Msg.PACKET_ID_LEN;
 
         do {
             String topic = rawMsg.getString();
             topics.add(topic);
 
-            remaining -= (topic.length() + Mqtt.STR_SIZELEN);
+            remaining -= (topic.length() + Msg.STR_SIZELEN);
         } while (remaining > 0);
     }
 

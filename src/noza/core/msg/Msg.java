@@ -10,6 +10,16 @@ import java.nio.ByteBuffer;
 
 public abstract class Msg
 {
+    public static final int STR_SIZELEN       = 2;
+    public static final int PACKET_ID_LEN     = 2;
+    public static final int QOS_BYTE_LEN      = 1;
+    public static final int MIN_MSG_LEN       = 2;
+    public static final int MAX_FIXED_HDR_LEN = 5;
+    public static final int QOS0              = 0x00;
+    public static final int QOS1              = 0x01;
+    public static final int QOS2              = 0x02;
+    public static final int QOS_FAIL          = 0x80;
+
     protected int hdrType;
     protected int hdrLen;
     protected int remaining;

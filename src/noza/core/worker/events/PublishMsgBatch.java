@@ -2,10 +2,9 @@ package noza.core.worker.events;
 
 import noza.core.ClientRecord;
 import noza.core.client.events.PublishMsgEvent;
+import noza.core.msg.Msg;
 import noza.core.msg.PublishMsg;
-import noza.core.worker.Worker;
-import noza.db.Db;
-import noza.core.msg.Topic;
+import noza.core.worker.ClientWorker;
 
 import java.util.List;
 
@@ -14,16 +13,16 @@ public class PublishMsgBatch
 {
     private int size;
     private PublishMsgEvent[] publishBatch;
-    private Db db;
-    private Db.ClientOutMsgBatch dbBatch;
+    //private Db db;
     private PublishMsg msg;
-    private List<Worker> workers;
+    private List<ClientWorker> workers;
+    private boolean autoCommit;
 
-    public PublishMsgBatch(Db db, List<Worker> workers)
+    public PublishMsgBatch(/*Db db, */List<ClientWorker> workers)
     {
-        this.db = db;
+        this.autoCommit = true;
+        //this.db = db;
         this.workers = workers;
-        this.dbBatch = db.createPublishOutBatch();
 
         publishBatch = new PublishMsgEvent[workers.size()];
         for (int i = 0; i < workers.size(); i++) {
@@ -43,18 +42,21 @@ public class PublishMsgBatch
 
     public void add(ClientRecord record)
     {
-        if (msg.qos > Topic.QOS0) {
+        if (msg.qos > Msg.QOS0) {
             if (!msg.isStored()) {
-                db.storeMsg(msg, false);
+                //db.storeMsg(msg);
                 msg.setStored();
             }
         }
 
         if (msg.isStored()) {
-            dbBatch.storeClientOutMsg(record.getClientId(),
-                                      msg.getId(),
-                                      (short) 0,
-                                      PublishMsg.QUEUED);
+            if (autoCommit) {
+                autoCommit = false;
+              //  db.setAutoCommit(false);
+            }
+
+           // db.storeClientOutMsg(record.getClientId(), msg.getId(),
+             //                    0, PublishMsg.QUEUED);
         }
 
         int workerId    = record.getWorker().getId();
@@ -79,7 +81,8 @@ public class PublishMsgBatch
     public void flush()
     {
         if (msg.isStored() && size > 0) {
-            dbBatch.execute();
+            autoCommit = true;
+            //db.setAutoCommit(true);
         }
 
         for (int i = 0; i < publishBatch.length; i++) {

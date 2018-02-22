@@ -19,7 +19,7 @@ public class PingreqMsg extends Msg
     public static final int LENGTH        = FIXED_HDR_LEN + REMAINING;
 
 
-    private PingreqMsg()
+    public PingreqMsg()
     {
         super(PingreqMsg.TYPE,
               PingreqMsg.FIXED_HDR_LEN,

@@ -13,7 +13,13 @@ import java.nio.ByteBuffer;
 
 public class ConnectMsg extends Msg implements Connect
 {
+    public static final String CLIENT_ID_CHARS
+        = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     public static final String STR          = "CONNECT";
+    public static final String MQTT_STR     = "MQTT";
+    public static final int MQTT_STR_LEN    = 4;
+    public static final byte PROTOCOL_LEVEL = 4;
     public static final byte TYPE           = 0x01;
     public static final byte HDR_FLAGS      = 0x00;
     public static final byte RESERVED_FLAGS = 0x01;
@@ -134,15 +140,15 @@ public class ConnectMsg extends Msg implements Connect
     public void encode()
     {
         if (!rawReady) {
-            remaining = Mqtt.STR_SIZELEN + Mqtt.MQTT_STR_LEN +                                          // "MQTT" STR
-                        1 +                                                                             // Protocol Level
-                        1 +                                                                             // Connect Flags
-                        2 +                                                                             // Keep Alive
-                        Mqtt.STR_SIZELEN + clientId.length() +                                          // Client ID
-                       (willPresent ? Mqtt.STR_SIZELEN + willMessage.getTopic().length()  +             // Will Topic
-                                      Mqtt.STR_SIZELEN + willMessage.getPayload().remaining() : 0) +    // Will Message
-                       (usernamePresent ? Mqtt.STR_SIZELEN + username.length() : 0) +                       // Username
-                       (passwordPresent ? Mqtt.STR_SIZELEN + password.length() : 0);                        // Password
+            remaining = Msg.STR_SIZELEN + MQTT_STR_LEN +                                            // "MQTT" STR
+                        1 +                                                                         // Protocol Level
+                        1 +                                                                         // Connect Flags
+                        2 +                                                                         // Keep Alive
+                        Msg.STR_SIZELEN + clientId.length() +                                       // Client ID
+                       (willPresent ? Msg.STR_SIZELEN + willMessage.getTopic().length()  +          // Will Topic
+                                      Msg.STR_SIZELEN + willMessage.getPayload().remaining() : 0) + // Will Message
+                       (usernamePresent ? Msg.STR_SIZELEN + username.length() : 0) +                // Username
+                       (passwordPresent ? Msg.STR_SIZELEN + password.length() : 0);                 // Password
 
             hdrLen = 1 + lengthOf(remaining);
 
@@ -155,8 +161,8 @@ public class ConnectMsg extends Msg implements Connect
             rawMsg.put((byte) (ConnectMsg.TYPE << 4 | ConnectMsg.HDR_FLAGS));
             rawMsg.putRemaining(remaining);
 
-            rawMsg.putString(Mqtt.MQTT_STR);
-            rawMsg.put(Mqtt.PROTOCOL_LEVEL);
+            rawMsg.putString(MQTT_STR);
+            rawMsg.put(PROTOCOL_LEVEL);
             rawMsg.put(connectFlags);
             rawMsg.putShort(keepAlive);
             rawMsg.putString(clientId);
@@ -189,12 +195,12 @@ public class ConnectMsg extends Msg implements Connect
         }
 
         String mqttStr = rawMsg.getString();
-        if (!mqttStr.equals(Mqtt.MQTT_STR)) {
+        if (!mqttStr.equals(MQTT_STR)) {
             throw new MqttException("Invalid MQTT str : " + mqttStr);
         }
 
         protoLevel = rawMsg.get();
-        if (protoLevel != Mqtt.PROTOCOL_LEVEL) {
+        if (protoLevel != PROTOCOL_LEVEL) {
             throw new MqttException("Unsupported MQTT level : " + protoLevel);
         }
 
@@ -270,17 +276,17 @@ public class ConnectMsg extends Msg implements Connect
         str.append("\t Protocol Level      : ").append(Util.byteToStr(protoLevel))     .append(nl);
         str.append("\t Client ID           : ").append(clientId)                       .append(nl);
         str.append("\t Connect Flags       : ").append(Util.byteToBinary(connectFlags)).append(nl);
-        str.append("\t Flag Will           : ").append(willPresent)                        .append(nl);
+        str.append("\t Flag Will           : ").append(willPresent)                    .append(nl);
 
         if (willMessage != null) {
             str.append("\t Flag Will QOS       : ").append(willMessage.getQos())       .append(nl);
-            str.append("\t Flag Will Retain    : ").append(willMessage.isRetained())     .append(nl);
+            str.append("\t Flag Will Retain    : ").append(willMessage.isRetained())   .append(nl);
             str.append("\t WILL TOPIC          : ").append(willMessage.getTopic())     .append(nl);
             str.append("\t WILL MESSAGE        : ").append(willLen).append(" bytes.")  .append(nl);
         }
 
-        str.append("\t Flag Username       : ").append(usernamePresent)                    .append(nl);
-        str.append("\t Flag Password       : ").append(passwordPresent)                    .append(nl);
+        str.append("\t Flag Username       : ").append(usernamePresent)                .append(nl);
+        str.append("\t Flag Password       : ").append(passwordPresent)                .append(nl);
         str.append("\t Flag Clean Session  : ").append(cleanSession)                   .append(nl);
         str.append("\t Keep Alive          : ").append(Util.shortToStr(keepAlive))     .append(nl);
 

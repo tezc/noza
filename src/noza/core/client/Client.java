@@ -1,11 +1,13 @@
 package noza.core.client;
 
+import noza.api.msgs.Publish;
 import noza.base.config.Configs;
 import noza.base.exception.MqttException;
 import noza.base.transport.sock.SockOwner;
 import noza.core.ClientRecord;
 import noza.core.client.timers.KeepAlive;
 import noza.core.msg.*;
+import noza.core.worker.ClientWorker;
 import noza.core.worker.Worker;
 import noza.core.msg.Topic;
 import noza.base.common.MqttDecoder;
@@ -15,9 +17,7 @@ import noza.core.BufferPool;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Client implements SockOwner
 {
@@ -28,7 +28,7 @@ public class Client implements SockOwner
     private ClientRecord record;
 
     private int state;
-    private Worker worker;
+    private ClientWorker worker;
     private long timestamp;
 
     private ByteBuffer sendBuf;
@@ -46,10 +46,10 @@ public class Client implements SockOwner
     private boolean hasPassword;
     private boolean hasWill;
 
-    private short packetId;
+    private int packetId;
 
     private ArrayList<Timer> timers;
-    private ArrayList<String> subscriptions;
+    private List<Topic> subscriptions;
     private ArrayDeque<Msg> incomings;
     private ArrayDeque<Msg> outgoings;
     private ArrayDeque<PublishMsg> inFlights;
@@ -58,7 +58,7 @@ public class Client implements SockOwner
 
     private MqttDecoder decoder;
 
-    public Client(Configs configs, Worker worker, Sock sock)
+    public Client(Configs configs, ClientWorker worker, Sock sock)
     {
         this.state         = ACCEPTED;
         this.worker        = worker;
@@ -80,7 +80,7 @@ public class Client implements SockOwner
     {
         worker.logInfo("Handling msg count : ", pendings.size());
         for (PublishMsg publish : pendings) {
-            sendPublish(publish);
+            sendPublish(publish, true);
         }
 
         pendings.clear();
@@ -121,7 +121,7 @@ public class Client implements SockOwner
         return cleanSession;
     }
 
-    public void setWorker(Worker worker)
+    public void setWorker(ClientWorker worker)
     {
         this.worker = worker;
         record.setWorker(worker);
@@ -140,9 +140,11 @@ public class Client implements SockOwner
                 sock.close();
             }
             finally {
-
                 if (cleanSession) {
-                    worker.removeSubscriptions(clientId, subscriptions);
+                    List<String> tmp = new ArrayList<>(subscriptions.size());
+                    subscriptions.forEach(sub -> tmp.add(sub.getStr()));
+                    removeSubscriptions(tmp);
+
                     worker.removeStoredClient(clientId);
                 }
                 else {
@@ -158,22 +160,14 @@ public class Client implements SockOwner
                 if (!gracefully) {
                     if (hasWill) {
                         worker.publish(userName, clientId, willMessage);
+                        if (!cleanSession) {
+                            worker.publish(userName, clientId, willMessage);
+
+                        }
                     }
                 }
             }
         }
-    }
-
-    public void unsubscribe(UnsubscribeMsg unsubscribe)
-    {
-        for (String topic : unsubscribe.topics) {
-            worker.removeSubscription(clientId, topic);
-            if (!cleanSession) {
-                worker.removeStoredSubscription(clientId, topic);
-            }
-        }
-
-        sendUnsuback(unsubscribe);
     }
 
     private boolean verifyKeepAlive()
@@ -214,6 +208,35 @@ public class Client implements SockOwner
         List<PublishMsg> publishes;
 
         publishes = worker.getStoredClientOutMsgs(clientId);
+        for (PublishMsg msg : publishes) {
+
+            switch (msg.qos) {
+
+            }
+            if (msg.qos == Msg.QOS0) {
+                removeOutMsg(msg);
+            }
+            else {
+                if (msg.state == PublishMsg.QUEUED) {
+                    msg.packetId = generatePacketId();
+
+                    if (msg.qos == Msg.QOS1) {
+                        msg.state = PublishMsg.WAIT_FOR_PUBACK;
+                    }
+                    else {
+                        msg.qos = PublishMsg.WAIT_FOR_PUBREC;
+                    }
+
+                    storeOutMsg(msg);
+                }
+                else if (msg.state == PublishMsg.QUEUED)
+
+                inFlights.add(msg);
+            }
+
+            outgoings.add(msg);
+        }
+
         inFlights.addAll(publishes);
         outgoings.addAll(publishes);
 
@@ -279,14 +302,14 @@ public class Client implements SockOwner
         for (PublishMsg publish : inFlights) {
             if (publish.getPacketId() == puback.packetId) {
                 inFlights.remove(publish);
-                worker.removeStoredClientOutMsg(clientId, publish.getId());
+                removeOutMsg(publish);
                 found = true;
                 break;
             }
         }
 
         if (!found) {
-            throw new Error(
+            throw new MqttException(
                 "Unexpected PUBACK with packet getId : " + puback.packetId);
         }
     }
@@ -297,8 +320,9 @@ public class Client implements SockOwner
 
         for (PublishMsg publish : inFlights) {
             if (publish.getPacketId() == pubrec.packetId) {
-                worker.storeClientOutMsgState(clientId,
-                                              publish.getId(), PublishMsg.WAIT_FOR_PUBCOMP);
+                publish.state = PublishMsg.WAIT_FOR_PUBCOMP;
+                storeOutMsg(publish);
+
                 sendPubrel(pubrec.packetId);
                 found = true;
                 break;
@@ -319,7 +343,6 @@ public class Client implements SockOwner
             if (publish.getPacketId() == pubrel.packetId) {
                 inFlights.remove(publish);
                 worker.removeStoredClientInMsg(clientId, publish.getId());
-
                 break;
             }
         }
@@ -333,7 +356,6 @@ public class Client implements SockOwner
             if (publish.getPacketId() == pubcomp.packetId) {
                 inFlights.remove(publish);
                 worker.removeStoredClientOutMsg(clientId, publish.getId());
-
                 break;
             }
         }
@@ -359,15 +381,92 @@ public class Client implements SockOwner
         outgoings.add(new SubackMsg(subscribe));
     }
 
-    public void sendPublish(PublishMsg publish)
+    public int generatePacketId()
+    {
+        boolean cont;
+
+        do {
+            cont = false;
+            packetId = packetId + 1 % 65536;
+
+            for (PublishMsg msg : inFlights) {
+                if (msg.packetId == packetId) {
+                    cont = true;
+                    break;
+                }
+            }
+        } while(cont);
+
+        return packetId;
+    }
+
+    private void storeMsg(PublishMsg msg)
+    {
+        worker.storeMsg(msg);
+    }
+
+    private void storeInMsg(PublishMsg msg)
+    {
+        worker.storeClientInMsg(clientId, msg.getId(), msg.packetId, msg.state);
+    }
+
+    private void storeOutMsg(PublishMsg msg)
+    {
+        worker.storeClientOutMsg(clientId, msg.getId(), msg.packetId, msg.state);
+    }
+
+    private void removeOutMsg(PublishMsg msg)
+    {
+        worker.removeStoredClientOutMsg(clientId, msg.getId());
+    }
+
+    private void addSubscription(Topic topic)
+    {
+        boolean result = worker.addSubscription(this, topic, true);
+        if (!result) {
+            topic.setResult(Msg.QOS_FAIL);
+        }
+        else {
+            topic.setResult(topic.getQos());
+            subscriptions.add(topic);
+
+            if (!cleanSession) {
+                worker.storeSubscription(clientId, topic.getStr(), topic.getQos());
+            }
+        }
+    }
+
+    private void removeSubscriptions(List<String> topics)
+    {
+        worker.removeSubscriptions(clientId, topics);
+        if (!cleanSession) {
+            worker.removeStoredSubscriptions(clientId, topics);
+        }
+    }
+
+    public void sendPublish(PublishMsg publish, boolean inStore)
     {
         PublishMsg pub = new PublishMsg(publish);
 
-        outgoings.add(pub);
-
         if (pub.isStored()) {
+
+            if (!inStore)
+
+            if (pub.qos == Msg.QOS1) {
+                pub.packetId = generatePacketId();
+                pub.state    = PublishMsg.WAIT_FOR_PUBACK;
+            }
+            else if (pub.qos == Msg.QOS2) {
+                pub.packetId = generatePacketId();
+                pub.state    = PublishMsg.WAIT_FOR_PUBREC;
+            }
+
             inFlights.add(pub);
+
+            storeOutMsg(pub);
         }
+
+        outgoings.add(pub);
     }
 
     private void sendPuback(PublishMsg publish)
@@ -456,52 +555,38 @@ public class Client implements SockOwner
         return false;
     }
 
-
     public boolean handleSubscribeMsg(SubscribeMsg msg)
     {
-        sendSuback(msg);
-
         for (Topic topic : msg.topics) {
-            boolean result = worker.addSubscription(this, topic, true);
-            if (!result) {
-                topic.setResult(Topic.QOS_FAIL);
-                worker.logInfo(topic.toString(), " rejected.");
-                continue;
-            }
-
-            if (!cleanSession) {
-                worker.storeSubscription(clientId, topic.getStr(), topic.getQos());
-            }
+            addSubscription(topic);
         }
 
+        sendSuback(msg);
         flush();
 
         return true;
     }
-
 
     public boolean handleUnsubscribeMsg(UnsubscribeMsg msg)
     {
-        unsubscribe(msg);
+        removeSubscriptions(msg.topics);
+
+        sendUnsuback(msg);
         flush();
 
         return true;
-    }
-
-    public void handlePublishEvent(PublishMsg msg)
-    {
-        sendPublish(msg);
-        flush();
     }
 
     public boolean handlePublishMsg(PublishMsg msg)
     {
-        if (msg.qos == Topic.QOS1) {
+
+
+        if (msg.qos == Msg.QOS1) {
             sendPuback(msg);
         }
-        else if (msg.qos == Topic.QOS2) {
-            msg.setStored();
+        else if (msg.qos == Msg.QOS2) {
             worker.storeMsg(msg);
+            msg.setStored();
             worker.storeClientInMsg(clientId, msg.getId(), msg.getPacketId(), PublishMsg.WAIT_FOR_PUBREL);
             sendPubrec(msg);
         }
@@ -612,7 +697,7 @@ public class Client implements SockOwner
 
             boolean cont = msg.handle(this);
             if (!cont || state == DISCONNECTED) {
-                break;
+                return;
             }
         }
 

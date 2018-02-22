@@ -38,7 +38,7 @@ public class SubackMsg extends Msg
     public void encode()
     {
         if (!rawReady) {
-            remaining = subscribe.topics.size() + Mqtt.PACKET_ID_LEN;
+            remaining = subscribe.topics.size() + Msg.PACKET_ID_LEN;
             hdrLen = 1 + Msg.lengthOf(remaining);
 
             if (rawMsg == null) {
@@ -48,7 +48,7 @@ public class SubackMsg extends Msg
             rawMsg.clear();
 
             rawMsg.put((byte) (TYPE << 4 | HDR_FLAGS));
-            rawMsg.putRemaining(Mqtt.PACKET_ID_LEN + subscribe.topics.size());
+            rawMsg.putRemaining(Msg.PACKET_ID_LEN + subscribe.topics.size());
             rawMsg.putShort(subscribe.packetId);
 
             for (Topic topic : subscribe.topics) {
@@ -70,7 +70,7 @@ public class SubackMsg extends Msg
         }
 
         subscribe.packetId = rawMsg.getShort();
-        remaining -= Mqtt.PACKET_ID_LEN;
+        remaining -= Msg.PACKET_ID_LEN;
 
         /*do {
             Topic topic = new Topic();

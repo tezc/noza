@@ -11,21 +11,19 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/thirdParty/h2database" />
+          <root url="jar://$MODULE_DIR$/thirdParty/h2/h2-mvstore-1.4.196.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/thirdParty/h2database" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" scope="PROVIDED">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/thirdParty/servlet" />
+          <root url="jar://$MODULE_DIR$/thirdParty/jgroups/jgroups-4.0.5.Final.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/thirdParty/servlet" recursive="false" />
       </library>
     </orderEntry>
   </component>

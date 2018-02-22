@@ -3,6 +3,7 @@ package noza.core.worker.events;
 import noza.base.common.Util;
 import noza.base.poller.Event;
 import noza.core.client.Client;
+import noza.core.worker.ClientWorker;
 import noza.core.worker.Worker;
 
 

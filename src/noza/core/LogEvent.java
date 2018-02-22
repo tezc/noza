@@ -20,6 +20,7 @@ public class LogEvent implements Event
         this.owner     = owner;
         this.t         = t;
         this.args      = args;
+
     }
 
     @Override

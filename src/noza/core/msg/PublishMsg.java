@@ -167,12 +167,12 @@ public class PublishMsg extends Msg implements Publish
         if (!rawReady) {
             remaining = 0;
 
-            remaining += Mqtt.STR_SIZELEN;
+            remaining += Msg.STR_SIZELEN;
             remaining += topic.length();
             remaining += payload.remaining();
 
-            if (qos > Topic.QOS0) {
-                remaining += Mqtt.STR_SIZELEN;
+            if (qos > Msg.QOS0) {
+                remaining += Msg.STR_SIZELEN;
             }
 
             hdrLen = 1 + lengthOf(remaining);
@@ -194,7 +194,7 @@ public class PublishMsg extends Msg implements Publish
             rawMsg.putRemaining(remaining);
             rawMsg.putString(topic);
 
-            if (qos > Topic.QOS0) {
+            if (qos > Msg.QOS0) {
                 rawMsg.putShort((short) packetId);
             }
 
@@ -216,11 +216,11 @@ public class PublishMsg extends Msg implements Publish
 
         topic = rawMsg.getString();
         int len = remaining;
-        len -= topic.length() + Mqtt.STR_SIZELEN;
+        len -= topic.length() + Msg.STR_SIZELEN;
 
-        if (qos > Topic.QOS0) {
+        if (qos > Msg.QOS0) {
             packetId   = rawMsg.getShort();
-            len -= Mqtt.PACKET_ID_LEN;
+            len -= Msg.PACKET_ID_LEN;
         }
 
         payload = rawMsg.getBuffer(len);

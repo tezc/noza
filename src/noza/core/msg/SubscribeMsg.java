@@ -39,11 +39,11 @@ public class SubscribeMsg extends Msg
     public void encode()
     {
         if (!rawReady) {
-            remaining = Mqtt.PACKET_ID_LEN;
+            remaining = Msg.PACKET_ID_LEN;
 
             for (Topic topic : topics) {
-                remaining += Mqtt.QOS_BYTE_LEN +
-                             Mqtt.STR_SIZELEN + topic.getStr().length();
+                remaining += Msg.QOS_BYTE_LEN +
+                             Msg.STR_SIZELEN + topic.getStr().length();
             }
 
             hdrLen = 1 + lengthOf(remaining);
@@ -73,14 +73,14 @@ public class SubscribeMsg extends Msg
         rawMsg.advance(hdrLen);
 
         packetId   = rawMsg.getShort();
-        remaining -= Mqtt.PACKET_ID_LEN;
+        remaining -= Msg.PACKET_ID_LEN;
 
         do {
             Topic topic = new Topic(rawMsg.getString(), rawMsg.get());
             topics.add(topic);
 
-            remaining -= (topic.getStr().length() + Mqtt.STR_SIZELEN +
-                                                    Mqtt.QOS_BYTE_LEN);
+            remaining -= (topic.getStr().length() + Msg.STR_SIZELEN +
+                                                    Msg.QOS_BYTE_LEN);
         } while (remaining != 0);
     }
 

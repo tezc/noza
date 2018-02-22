@@ -1,14 +1,15 @@
 package noza.core;
 
 
+import noza.core.worker.ClientWorker;
 import noza.core.worker.Worker;
 
 public class ClientRecord
 {
     private String clientId;
-    private Worker worker;
+    private ClientWorker worker;
 
-    public ClientRecord(String clientId, Worker worker)
+    public ClientRecord(String clientId, ClientWorker worker)
     {
         this.clientId = clientId;
         this.worker   = worker;
@@ -24,12 +25,12 @@ public class ClientRecord
         this.clientId = clientId;
     }
 
-    public Worker getWorker()
+    public ClientWorker getWorker()
     {
         return worker;
     }
 
-    public void setWorker(Worker worker)
+    public void setWorker(ClientWorker worker)
     {
         this.worker = worker;
     }
